@@ -1,0 +1,22 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}
+Create Quiz
+{% endblock %}
+
+{% block navbar %}
+<h2 class="text-center">Virtual Table Quiz App</h2>
+{% endblock %}
+
+{% block content%}
+<div class="cold-md-10" style="width:400px; margin:0 auto;">
+    <h2 style="text-align:center">Create Quiz</h2>
+    <form action="" method="POST" novalidate >
+        {{ create_quiz_form.hidden_tag() }}
+        <p>
+            {{ wtf.quick_form(create_quiz_form) }}<br>
+        </p>
+    </form>
+</div>
+{% endblock %}

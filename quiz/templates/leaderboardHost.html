@@ -1,0 +1,44 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}
+Leaderboard Host
+{% endblock %}
+
+{% block navbar %}
+<h2 class="text-center">Virtual Table Quiz App</h2>
+{% endblock %}
+
+{% block content %}
+<div class="cold-md-10" style="width:800px; margin:0 auto; position:relative; top: 20px;">
+    {{ leaderboard.to_html(classes = "table table-stripped") | safe}}
+    <form id="form" method="POST">
+        <button type="submit"  class="btn btn-primary btn-lg btn-block" name="{{buttonText}}" value="{{buttonText}}">{{buttonText}}</button>
+    </form>
+    <form id="endQuiz" method="POST" style="position:relative; top:20px">
+        <button type="submit"  class="btn btn-primary btn-lg btn-block" name="End Quiz" value="End Quiz">End Quiz</button>
+    </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <script>
+        const socket = io.connect('http://' + document.domain + ':' + location.port);
+        let buttonValue = "{{buttonText}}";
+        document.getElementById('form').onsubmit = function (e) {
+            e.preventDefault();
+            if(buttonValue = "Next Round"){
+                socket.emit('next question', {
+                });
+                socket.emit('clear leaderboard')
+                window.location = "/hostquiz/{{hostName}}";
+            }
+        }
+        document.getElementById('endQuiz').onsubmit = function (e) {
+            e.preventDefault();
+            socket.emit('end quiz')
+            socket.emit('clear leaderboard')
+            window.location = "/teamHome"
+        }
+
+
+    </script>
+</div>
+{% endblock %}

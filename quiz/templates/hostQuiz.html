@@ -1,0 +1,35 @@
+
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}
+Host - Quiz Started 
+{% endblock %}
+
+{% block content %}
+<div class="cold-md-10" style="width:800px; margin:0 auto;">
+    <progress value="0" max="10" id="progressBar" style="width:100%" ></progress>
+    <h2 style="text-align:center">{{ question }}</h2>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <script>
+        const socket = io.connect('http://' + document.domain + ':' + location.port);
+
+        var timeleft = 10;
+        var downloadTimer = setInterval(function(){
+        if(timeleft <= 0){
+            clearInterval(downloadTimer);
+            socket.emit('next question', {
+                
+            });
+        }
+        document.getElementById("progressBar").value = 10 - timeleft;
+        timeleft -= 1;
+        }, 1000);
+        
+        socket.on('refresh question',function(data){
+            window.location= "/hostquiz/"+"{{hostName}}";
+        })
+
+    </script>
+</div>
+{% endblock %}

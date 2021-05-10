@@ -1,0 +1,33 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}
+Team Selection
+{% endblock %}
+
+{% block navbar %}
+<h2 class="text-center">Virtual Table Quiz App</h2>
+{% endblock %}
+
+{% block content%}
+<div class="cold-md-10" style="width:400px; margin:0 auto;">
+    <h2 style="text-align:center">Create</h2>
+    <form action="" method="POST" novalidate >
+        {{ create_form.hidden_tag() }}
+        <p>
+            {{ wtf.quick_form(create_form) }}<br>
+        </p>
+    </form>
+    <h2 style="text-align:center">Join</h2>
+    <form action="" method="POST" novalidate>
+        {{ join_form.hidden_tag() }}
+        <p>
+            {{ wtf.quick_form(join_form) }}<br>
+        </p>
+    </form>
+    <form style = "text-align:center" action="" method="POST">
+        {{host_form.hidden_tag()}}
+        {{ wtf.quick_form(host_form) }}
+    </form>
+</div>
+{% endblock %}

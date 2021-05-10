@@ -1,0 +1,29 @@
+{% extends "bootstrap/base.html" %}
+
+
+{% block title %}
+Host
+{% endblock %}
+{% block navbar %}
+<h2 class="text-center">Virtual Table Quiz App</h2>
+{% endblock %}
+{% block content%}
+<div class="cold-md-10" style="width:400px; margin:0 auto; position:relative; top: 20px;">
+    <form id="form" method="POST">
+        <button type="submit" class="btn btn-primary btn-lg btn-block" >Start Quiz</button>
+    </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <script>
+        const socket = io.connect('http://' + document.domain + ':' + location.port);
+        
+        document.getElementById('form').onsubmit = function (e) {
+            e.preventDefault();
+            socket.emit('start quiz');
+            // sleep(1000);
+            window.location = "/hostquiz/{{hostName}}";
+        }
+        
+
+    </script>
+</div>
+{% endblock %}
