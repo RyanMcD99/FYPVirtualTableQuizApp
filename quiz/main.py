@@ -87,8 +87,6 @@ def quiz(teamName):
     if database.getRoom(teamName) and database.isTeamMember(teamName, session['username']):
         if not questionList or questionNum == 6 or questionNum ==0:
             return redirect(url_for('leaderboard', teamName= teamName))    
-        start = time.time()
-        app.logger.info("Start: " +str(start))  
         questionDic = questionList[0]
         question = questionDic.get('question')
         app.logger.info("Current Question: " + question)
@@ -139,9 +137,7 @@ def host(hostName):
 @app.route("/hostquiz/<hostName>", methods = ['GET', 'POST'])
 def hostQuiz(hostName):
     global questionNum
-    
-    # app.logger.info(questionList)
-    if database.isHost(hostName):
+        if database.isHost(hostName):
         questionList = database.getQuestionsDB()
         
         if questionNum == 6:
