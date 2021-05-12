@@ -137,7 +137,7 @@ def host(hostName):
 @app.route("/hostquiz/<hostName>", methods = ['GET', 'POST'])
 def hostQuiz(hostName):
     global questionNum
-        if database.isHost(hostName):
+    if database.isHost(hostName):
         questionList = database.getQuestionsDB()
         
         if questionNum == 6:
